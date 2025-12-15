@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPDIC: Advanced Visualization</title>
+    <title>SPDIC: Project Page</title>
     
-    <!-- Bootstrap & FontAwesome -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Plotly & MathJax -->
+    <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         body { font-family: 'Times New Roman', serif; background-color: #f8f9fa; color: #333; }
+        
+        /* Header */
         .hero-section { background: #fff; padding: 40px 0; border-bottom: 1px solid #ddd; margin-bottom: 30px; }
-        .btn-github { background-color: #24292e; color: #fff; border-radius: 30px; padding: 8px 20px; text-decoration: none; font-weight: bold; }
-        .btn-github:hover { background-color: #444; color: #fff; }
+        .paper-title { font-weight: bold; color: #2c3e50; }
+        .btn-github { background-color: #24292e; color: #fff; border-radius: 30px; padding: 8px 20px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .btn-github:hover { background-color: #444; color: #fff; transform: translateY(-2px); }
+
+        /* Cards */
         .card { border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 10px; margin-bottom: 20px; }
-        .card-header { background: #fff; font-weight: bold; border-bottom: 2px solid #f0f0f0; }
+        .card-header { background: #fff; font-weight: bold; border-bottom: 2px solid #f0f0f0; padding: 15px 20px; }
         
         /* Explanation Box */
         #dynamicExplainer { border-left-width: 5px; transition: all 0.3s ease; font-size: 0.95rem; }
         
-        /* Math */
+        /* Math Box */
         .math-box { background: #eef; padding: 10px; border-left: 4px solid #0d6efd; font-size: 0.9rem; margin-top: 15px; }
         .rho-label { font-style: italic; font-weight: bold; color: #666; }
     </style>
@@ -33,7 +40,7 @@
 
 <div class="hero-section text-center">
     <div class="container">
-        <h2>Perceptual Distributed Image Compression: Only Need Stochasticity</h2>
+        <h1 class="paper-title">Perceptual Distributed Image Compression: Only Need Stochasticity</h1>
         <div class="text-muted mb-3">Guojun Xu<sup>1</sup>, et al.</div>
         <a href="https://github.com/Mommqq/SPDIC" target="_blank" class="btn-github"><i class="fab fa-github me-2"></i>Code & Models</a>
     </div>
@@ -43,15 +50,15 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <span>P-D Trade-off Explorer</span>
-            <small class="text-muted fw-normal">Inset plot (top-right) zooms in on the trade-off region</small>
+            <small class="text-muted fw-normal"><i class="fas fa-search-plus"></i> Inset plot (top-right) auto-zooms on the curve</small>
         </div>
         <div class="card-body">
             <div class="row">
-                <!-- Controls -->
+                <!-- Left: Controls -->
                 <div class="col-lg-3 border-end">
-                    <h5 class="text-primary mb-3">Controls</h5>
+                    <h5 class="text-primary mb-3">Parameters</h5>
                     
-                    <!-- Rho -->
+                    <!-- Rho Slider -->
                     <label class="fw-bold d-flex justify-content-between">
                         <span>Correlation &rho;</span>
                         <span id="rhoVal" class="text-primary">0.50</span>
@@ -62,9 +69,11 @@
                         <span>High (0.99)</span>
                     </div>
 
-                    <!-- Beta -->
+                    <hr>
+
+                    <!-- Beta Slider -->
                     <label class="fw-bold d-flex justify-content-between">
-                        <span>Variance &beta;</span>
+                        <span>Variance Scale &beta;</span>
                         <span id="betaVal" class="text-danger">0.50</span>
                     </label>
                     <input type="range" class="form-range" id="betaSlider" min="0.1" max="1.5" step="0.01" value="0.5">
@@ -80,7 +89,7 @@
                         <span id="statusText" class="small">Adjust sliders...</span>
                     </div>
 
-                    <!-- Metrics -->
+                    <!-- Metrics Display -->
                     <div class="bg-light p-2 rounded border text-center small mt-3">
                         <div class="row g-0">
                             <div class="col border-end">D (MSE)<br><span id="valD" class="fw-bold fs-6">--</span></div>
@@ -94,16 +103,18 @@
                     </div>
                 </div>
 
-                <!-- Main Plot -->
+                <!-- Middle: P-D Plot with Inset -->
                 <div class="col-lg-6">
                     <div id="pdChart" style="height:500px;"></div>
                 </div>
 
-                <!-- Distribution Plot -->
+                <!-- Right: Distribution Plot -->
                 <div class="col-lg-3">
                     <div id="distChart" style="height:250px;"></div>
-                    <div class="alert alert-info small mt-2 p-2">
-                        <i class="fas fa-search me-1"></i> The <b>Inset Plot</b> (in the middle graph) automatically zooms in on the valid trade-off curve (Solid Blue Line) to show details when &rho; is large.
+                    <div class="alert alert-info small mt-3 p-2">
+                        <strong><i class="fas fa-lightbulb"></i> Insight:</strong><br>
+                        When &rho; is high (e.g., 0.95), the trade-off curve in the main plot shrinks to a dot. <br>
+                        Use the <b>Zoom Inset</b> (top-right) to see the movement!
                     </div>
                 </div>
             </div>
@@ -114,6 +125,7 @@
 <script>
     const sigma2 = 1.0;
 
+    // --- Mathematical Models ---
     function getD(beta, rho) { return (Math.pow(beta - rho, 2) + (1 - Math.pow(rho, 2))) * sigma2; }
     function getP(beta) {
         let b = Math.max(beta, 0.01);
@@ -123,6 +135,7 @@
         return (1.0 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow(x / sigma, 2));
     }
 
+    // --- Explanation Logic ---
     function updateExplanation(rho, beta) {
         const box = document.getElementById('dynamicExplainer');
         const title = document.getElementById('statusTitle');
@@ -133,7 +146,7 @@
 
         if (Math.abs(beta - 1.0) <= eps) {
             style = "alert-success"; head = "🌟 Perfect Perception";
-            msg = "<b>&beta; &approx; 1</b>. Optimal texture. P &rarr; 0.";
+            msg = "<b>&beta; &approx; 1</b>. Optimal texture restoration. P &rarr; 0.";
             box.style.cssText = "background:#d1e7dd; border-left-color:#198754; color:#0f5132";
         } else if (Math.abs(beta - rho) <= eps) {
             style = "alert-primary"; head = "📉 Distortion Optimized";
@@ -157,6 +170,7 @@
         title.innerHTML = head; text.innerHTML = msg;
     }
 
+    // --- Main Update Loop ---
     function updateCharts() {
         let rho = parseFloat(document.getElementById('rhoSlider').value);
         let beta = parseFloat(document.getElementById('betaSlider').value);
@@ -168,21 +182,24 @@
         document.getElementById('valP').innerText = currP.toFixed(3);
         updateExplanation(rho, beta);
 
-        // --- Data Gen ---
+        // 1. Data Generation
         let genData = (start, end, step) => {
             let x=[], y=[];
             for(let b=start; b<=end; b+=step) { x.push(getD(b, rho)); y.push(getP(b)); }
             return {x, y};
         };
 
-        // 1. Blurry (beta < rho)
+        // - Blurry (beta < rho)
         let blurData = genData(0.1, rho, 0.01);
-        // 2. Trade-off (rho <= beta <= 1)
+        // - Trade-off (rho <= beta <= 1)
         let tradeData = genData(rho, 1.0, 0.005);
-        // 3. Noisy (beta > 1)
+        if (tradeData.x.length === 0) { // Safety for rho=1 case
+             tradeData = {x: [getD(1.0, rho)], y: [getP(1.0)]};
+        }
+        // - Noisy (beta > 1)
         let noiseData = genData(1.0, 1.5, 0.01);
 
-        // Key Points
+        // Points
         let minD = {x:[getD(rho, rho)], y:[getP(rho)]};
         let ideal = {x:[getD(1.0, rho)], y:[getP(1.0)]};
         let curr = {x:[currD], y:[currP]};
@@ -192,61 +209,71 @@
         let tTrade = {x:tradeData.x, y:tradeData.y, mode:'lines', name:'Trade-off', line:{color:'#0d6efd', width:4}};
         let tNoise = {x:noiseData.x, y:noiseData.y, mode:'lines', name:'Noisy', line:{color:'#999', width:2, dash:'dot'}};
         
-        // Traces for Inset (Zoomed) - Same data, different axis binding
-        let tTradeZoom = {
-            x: tradeData.x, y: tradeData.y, mode: 'lines', 
-            line: {color: '#0d6efd', width: 3}, xaxis: 'x2', yaxis: 'y2', showlegend: false
-        };
-        let tCurrZoom = {
-            x: curr.x, y: curr.y, mode: 'markers', 
-            marker: {color: '#d62728', size: 10, line:{color:'white', width:1}}, 
-            xaxis: 'x2', yaxis: 'y2', showlegend: false
-        };
-
         let tPts = {
             x:[minD.x[0], ideal.x[0]], y:[minD.y[0], ideal.y[0]], mode:'markers',
-            marker:{color:['black', '#198754'], size:10, symbol:['diamond', 'star']}, name:'Key Points'
+            marker:{color:['black', '#198754'], size:8, symbol:['diamond', 'star']}, hoverinfo:'none'
         };
         let tCurr = {
             x:curr.x, y:curr.y, mode:'markers', name:'Current',
-            marker:{color:'#d62728', size:14, line:{color:'white', width:2}}
+            marker:{color:'#d62728', size:12, line:{color:'white', width:2}}
         };
 
-        // --- Layout with Inset ---
-        // Calculate inset ranges dynamically based on trade-off segment
-        let xMinZoom = Math.min(...tradeData.x);
-        let xMaxZoom = Math.max(...tradeData.x);
-        let yMinZoom = Math.min(...tradeData.y);
-        let yMaxZoom = Math.max(...tradeData.y);
-        
-        // Add padding to zoom view
-        let xPad = (xMaxZoom - xMinZoom) * 0.1 || 0.01;
-        let yPad = (yMaxZoom - yMinZoom) * 0.1 || 0.01;
+        // --- Traces for Inset (Zoom) ---
+        // Duplicate traces but assigned to axis 2
+        let tTradeZoom = {
+            x: tradeData.x, y: tradeData.y, mode: 'lines', xaxis: 'x2', yaxis: 'y2',
+            line: {color: '#0d6efd', width: 3}, showlegend: false, hoverinfo: 'skip'
+        };
+        let tCurrZoom = {
+            x: curr.x, y: curr.y, mode: 'markers', xaxis: 'x2', yaxis: 'y2',
+            marker: {color: '#d62728', size: 10, line:{color:'white', width:1}}, showlegend: false
+        };
+        let tPtsZoom = {
+            x:[minD.x[0], ideal.x[0]], y:[minD.y[0], ideal.y[0]], mode:'markers', xaxis: 'x2', yaxis: 'y2',
+            marker:{color:['black', '#198754'], size:8, symbol:['diamond', 'star']}, showlegend: false, hoverinfo: 'skip'
+        };
 
+        // --- Calculate Zoom Range ---
+        // Find min/max of the TRADE-OFF segment only
+        let xVals = tradeData.x;
+        let yVals = tradeData.y;
+        
+        let xMinZ = Math.min(...xVals); let xMaxZ = Math.max(...xVals);
+        let yMinZ = Math.min(...yVals); let yMaxZ = Math.max(...yVals);
+        
+        // Add 10% padding
+        let xPad = (xMaxZ - xMinZ) * 0.1 || 0.005;
+        let yPad = (yMaxZ - yMinZ) * 0.1 || 0.05;
+
+        // --- Plot Layout ---
         let layoutPD = {
             title: '<b>P-D Trade-off Curve</b>',
-            // Main Axis: Fixed range to show global context
-            xaxis: {title: 'Distortion D', range: [0, 1.2], domain: [0, 1]},
-            yaxis: {title: 'Perception P', range: [-0.1, 1.5], domain: [0, 1]}, // Capped at 1.5 to show Noisy line curve up
+            // Main Axis: Global View
+            xaxis: {title: 'Distortion D', range: [-0.05, 1.2], domain: [0, 1]},
+            yaxis: {title: 'Perception P', range: [-0.1, 1.5], domain: [0, 1]}, // Fixed range to show Noisy curve lift
             
-            // Inset Axis (Zoom) -> Top Right
+            // Inset Axis: Zoom View (Top Right)
             xaxis2: {
-                domain: [0.55, 0.95], anchor: 'y2', 
-                range: [xMinZoom - xPad, xMaxZoom + xPad],
-                title: 'Zoom (Trade-off)', titlefont: {size: 10}, tickfont: {size: 9}
+                domain: [0.6, 0.95], anchor: 'y2',
+                range: [xMinZ - xPad, xMaxZ + xPad],
+                title: 'Zoom: Trade-off Region', titlefont: {size: 10, color: '#0d6efd'},
+                tickfont: {size: 9}
             },
             yaxis2: {
-                domain: [0.55, 0.95], anchor: 'x2', 
-                range: [yMinZoom - yPad, yMaxZoom + yPad],
+                domain: [0.6, 0.95], anchor: 'x2',
+                range: [yMinZ - yPad, yMaxZ + yPad],
                 tickfont: {size: 9}
             },
             
             showlegend: false,
-            margin: {l:50, r:20, t:40, b:40},
-            shapes: [
-                // Optional: Box around inset area to distinguish it
-                { type: 'rect', xref: 'paper', yref: 'paper', x0: 0.55, y0: 0.55, x1: 0.95, y1: 0.95, line: {color: '#ccc'} }
-            ]
+            margin: {l: 50, r: 20, t: 40, b: 30},
+            
+            // Draw a box around inset
+            shapes: [{
+                type: 'rect', xref: 'paper', yref: 'paper',
+                x0: 0.6, y0: 0.6, x1: 0.95, y1: 0.95,
+                line: {color: '#ccc', width: 1}
+            }]
         };
 
         // --- Distribution Plot ---
@@ -256,11 +283,12 @@
         let traceDO = {x:xR, y:dO, fill:'tozeroy', line:{width:0, color:'#0d6efd'}};
         let traceDR = {x:xR, y:dR, mode:'lines', line:{width:3, color:'#d62728'}};
         let layoutDist = {
-            title: '<b>Distribution</b>', margin: {l:30, r:10, t:30, b:30},
-            xaxis: {title: '', showticklabels: false}, yaxis: {range: [0, 1.0]}, showlegend: false
+            title: `<b>Distribution (β=${beta.toFixed(2)})</b>`,
+            xaxis: {title: '', showticklabels: false}, yaxis: {range: [0, 1.0]},
+            showlegend: false, margin: {l:30, r:10, t:30, b:30}
         };
 
-        Plotly.react('pdChart', [tBlur, tTrade, tNoise, tTradeZoom, tCurrZoom, tPts, tCurr], layoutPD);
+        Plotly.react('pdChart', [tBlur, tTrade, tNoise, tPts, tCurr, tTradeZoom, tPtsZoom, tCurrZoom], layoutPD);
         Plotly.react('distChart', [traceDO, traceDR], layoutDist);
     }
 
