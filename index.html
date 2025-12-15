@@ -11,12 +11,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- MathJax -->
+    <!-- MathJax (仅用于静态公式) -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        body { font-family: 'Times New Roman', serif; background-color:a #f8f9fa; color: #333; }
+        body { font-family: 'Times New Roman', serif; background-color: #f8f9fa; color: #333; }
         
         .hero-section { background: #fff; padding: 50px 0 30px; border-bottom: 1px solid #e0e0e0; margin-bottom: 30px; }
         .paper-title { font-weight: bold; color: #2c3e50; }
@@ -98,7 +98,7 @@
                         <div class="flex-fill">P (Div) <div id="valP" class="fw-bold">--</div></div>
                     </div>
 
-                    <!-- Static Formula (MathJax works here) -->
+                    <!-- Static Formula -->
                     <div class="math-box mt-3">
                         $$ D = [(\beta - \rho)^2 + (1 - \rho^2)] \sigma^2 $$
                         $$ P = 0.5 [\ln(\beta^2) + \beta^{-2} - 1] $$
@@ -146,7 +146,6 @@
         if (Math.abs(beta - 1.0) <= eps) {
             stateClass = "alert-success"; 
             header = "🌟 Perfect Perception (Ours)";
-            // Use &beta; &rarr; &rho; etc. for safe rendering
             msg = `<b>&beta; &approx; 1.0</b>. Optimal texture restoration. Perception P is minimized (P &rarr; 0).`;
             box.style.borderLeftColor = "#198754";
             box.style.backgroundColor = "#d1e7dd";
@@ -185,9 +184,9 @@
             box.style.color = "#664d03";
         }
 
-        box.className = `alert p-3`; // Reset classes
+        box.className = `alert p-3`; 
         title.innerHTML = header;
-        text.innerHTML = msg; // innerHTML allows bold tags
+        text.innerHTML = msg; 
     }
 
     function updateCharts() {
@@ -204,25 +203,27 @@
 
         updateExplanation(rho, beta);
 
-        // --- Data Generation ---
+        // --- Data Generation: Split into 3 Segments ---
         
-        // 1. Blurry (Outside)
+        // 1. Blurry (Outside) - Left dashed
         let betaBlur = [];
         for(let b=0.05; b<=rho; b+=0.02) betaBlur.push(b);
-        betaBlur.push(rho); 
+        betaBlur.push(rho); // Connect to start of Trade-off
         let dBlur = betaBlur.map(b => getD(b, rho));
         let pBlur = betaBlur.map(b => getP(b));
 
-        // 2. Trade-off (Inside)
+        // 2. Trade-off (Inside) - Solid line
         let betaTrade = [];
         for(let b=rho; b<=1.0; b+=0.02) betaTrade.push(b);
-        betaTrade.push(1.0); 
+        betaTrade.push(1.0); // Ensure it hits 1.0 exactly
         let dTrade = betaTrade.map(b => getD(b, rho));
         let pTrade = betaTrade.map(b => getP(b));
 
-        // 3. Noisy (Outside)
+        // 3. Noisy (Outside) - Right dashed [FIXED]
         let betaNoise = [];
-        for(let b=1.0; b<=1.5; b+=0.02) betaNoise.push(b);
+        // Ensure start from 1.0 to connect seamlessly
+        let startNoise = 1.0; 
+        for(let b=startNoise; b<=1.5; b+=0.02) betaNoise.push(b);
         let dNoise = betaNoise.map(b => getD(b, rho));
         let pNoise = betaNoise.map(b => getP(b));
 
@@ -267,7 +268,7 @@
 
         let layoutPD = {
             title: '<b>P-D Trade-off Curve in DIC</b>',
-            xaxis: { title: 'Distortion D', autorange: true },
+            xaxis: { title: 'Distortion D', autorange: true }, // Auto range to show dashed lines
             yaxis: { title: 'Perception P', autorange: true },
             showlegend: false,
             margin: {l: 50, r: 20, t: 40, b: 30},
@@ -307,5 +308,4 @@
 </script>
 
 </body>
-
 </html>
