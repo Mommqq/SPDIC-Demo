@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPDIC: Project Page</title>
+    <title>SPDIC: Interactive Theory Analysis</title>
     
-    <!-- Bootstrap 5 -->
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -16,105 +16,176 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        body { font-family: 'Times New Roman', serif; background-color: #f8f9fa; color: #333; }
+        body { 
+            font-family: 'Times New Roman', serif; 
+            background-color: #f8f9fa; 
+            color: #333; 
+            line-height: 1.6;
+        }
         
-        /* Header */
-        .hero-section { background: #fff; padding: 40px 0; border-bottom: 1px solid #ddd; margin-bottom: 30px; }
-        .paper-title { font-weight: bold; color: #2c3e50; }
-        .btn-github { background-color: #24292e; color: #fff; border-radius: 30px; padding: 8px 20px; text-decoration: none; font-weight: bold; transition: 0.2s; }
-        .btn-github:hover { background-color: #444; color: #fff; transform: translateY(-2px); }
+        .hero { 
+            padding: 50px 0 30px; 
+            background: #fff; 
+            border-bottom: 1px solid #ddd; 
+            margin-bottom: 30px; 
+        }
+        .paper-title { font-weight: 800; color: #111; letter-spacing: -0.5px; }
+        .authors { font-size: 1.2rem; color: #444; margin-top: 10px; }
+        .affiliations { color: #666; font-style: italic; font-size: 1rem; }
+        
+        .btn-black { 
+            background-color: #222; color: #fff; border-radius: 50px; 
+            padding: 8px 25px; font-weight: 600; text-decoration: none; 
+            transition: all 0.3s; margin-top: 15px; display: inline-block;
+        }
+        .btn-black:hover { background-color: #444; color: #fff; }
 
-        /* Cards */
-        .card { border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 10px; margin-bottom: 20px; }
-        .card-header { background: #fff; font-weight: bold; border-bottom: 2px solid #f0f0f0; padding: 15px 20px; }
+        .dashboard-card { 
+            border: 1px solid #e0e0e0; 
+            border-radius: 12px; 
+            background: #fff; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06); 
+            overflow: hidden; 
+            margin-bottom: 50px; 
+        }
+        .card-header { 
+            background: #fff; border-bottom: 1px solid #eee; 
+            padding: 15px 25px; font-weight: bold; font-size: 1.2rem; 
+        }
         
-        /* Explanation Box */
-        #dynamicExplainer { border-left-width: 5px; transition: all 0.3s ease; font-size: 0.95rem; }
+        #analysisBox { 
+            padding: 15px; 
+            border-radius: 8px; 
+            background-color: #f8f9fa; 
+            border-left: 6px solid #ccc; 
+            min-height: 220px; 
+            font-size: 0.95rem; 
+        }
+        .analysis-header { font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; display: block; }
+
+        /* Metric Table */
+        .metric-cell { border-right: 1px solid #eee; padding: 10px; }
+        .metric-cell:last-child { border-right: none; }
+        .metric-label { font-size: 0.8rem; color: #666; font-weight: bold; text-transform: uppercase; }
+        .metric-value { font-size: 1.2rem; font-weight: 800; }
+
+        .math-container {
+            margin-top: 20px; padding: 10px; background: #eef4fc; 
+            border-radius: 8px; font-size: 0.9rem; text-align: center; border: 1px solid #dbeafe;
+        }
         
-        /* Math Box */
-        .math-box { background: #eef; padding: 10px; border-left: 4px solid #0d6efd; font-size: 0.9rem; margin-top: 15px; }
-        .rho-label { font-style: italic; font-weight: bold; color: #666; }
+        /* New Slider Style */
+        .slider-group { background: #fdfdfd; padding: 10px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-<div class="hero-section text-center">
+<div class="hero text-center">
     <div class="container">
-        <h1 class="paper-title">Perceptual Distributed Image Compression: Only Need Stochasticity</h1>
-        <div class="text-muted mb-3">Guojun Xu<sup>1</sup>, et al.</div>
-        <a href="https://github.com/Mommqq/SPDIC" target="_blank" class="btn-github"><i class="fab fa-github me-2"></i>Code & Models</a>
+        <h1 class="paper-title">Perceptual Distributed Image Compression:<br>Only Need Stochasticity</h1>
+        <div class="authors">Guojun Xu<sup>1</sup>, Jianwen Xiang<sup>2</sup>, Mingyang Zhang<sup>3</sup>, Junwei Zhou<sup>4</sup></div>
+        <div class="affiliations"><sup>1</sup>Wuhan University of Technology, <sup>2</sup>School of Computer Science</div>
+        <a href="https://github.com/Mommqq/SPDIC" target="_blank" class="btn-black"><i class="fab fa-github me-2"></i>Code & Models</a>
     </div>
 </div>
 
-<div class="container" style="max-width: 1250px;">
-    <div class="card">
+<div class="container" style="max-width: 1280px;">
+    
+    <div class="dashboard-card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <span>P-D Trade-off Explorer</span>
-            <small class="text-muted fw-normal"><i class="fas fa-search-plus"></i> Inset plot (top-right) auto-zooms on the curve</small>
+            <span>Interactive P-D Analysis</span>
+            <small class="text-muted fw-normal" style="font-size: 0.9rem;">
+                Fixed Source Variance &sigma;<sup>2</sup> = 2.5
+            </small>
         </div>
-        <div class="card-body">
+        
+        <div class="card-body p-4">
             <div class="row">
+                
                 <!-- Left: Controls -->
-                <div class="col-lg-3 border-end">
-                    <h5 class="text-primary mb-3">Parameters</h5>
+                <div class="col-lg-4 border-end pe-4">
                     
-                    <!-- Rho Slider -->
-                    <label class="fw-bold d-flex justify-content-between">
-                        <span>Correlation &rho;</span>
-                        <span id="rhoVal" class="text-primary">0.50</span>
-                    </label>
-                    <input type="range" class="form-range" id="rhoSlider" min="0.1" max="0.99" step="0.01" value="0.5">
-                    <div class="d-flex justify-content-between small text-muted mb-3">
-                        <span class="rho-label">&rho;<sub>SI</sub> (0.1)</span>
-                        <span>High (0.99)</span>
+                    <!-- NEW: Bitrate R Slider -->
+                    <div class="slider-group">
+                        <label class="fw-bold d-flex justify-content-between text-dark">
+                            <span><i class="fas fa-signal me-2"></i>Target Bitrate R</span>
+                            <span id="rateVal" class="text-dark">0.50</span>
+                        </label>
+                        <input type="range" class="form-range" id="rateSlider" min="0.01" max="2.0" step="0.01" value="0.5">
+                        <div class="small text-muted fst-italic">Controls Correlation &rho; (Linked)</div>
                     </div>
 
-                    <hr>
-
-                    <!-- Beta Slider -->
-                    <label class="fw-bold d-flex justify-content-between">
-                        <span>Variance Scale &beta;</span>
-                        <span id="betaVal" class="text-danger">0.50</span>
-                    </label>
-                    <input type="range" class="form-range" id="betaSlider" min="0.1" max="1.5" step="0.01" value="0.5">
-                    <div class="d-flex justify-content-between small text-muted mb-3">
-                        <span>Blur (0.1)</span>
-                        <span>Texture (1.0)</span>
-                        <span>Noise (1.5)</span>
-                    </div>
-
-                    <!-- Status Box -->
-                    <div id="dynamicExplainer" class="alert alert-secondary p-2">
-                        <span id="statusTitle" class="fw-bold d-block">Status</span>
-                        <span id="statusText" class="small">Adjust sliders...</span>
-                    </div>
-
-                    <!-- Metrics Display -->
-                    <div class="bg-light p-2 rounded border text-center small mt-3">
-                        <div class="row g-0">
-                            <div class="col border-end">D (MSE)<br><span id="valD" class="fw-bold fs-6">--</span></div>
-                            <div class="col">P (Div)<br><span id="valP" class="fw-bold fs-6">--</span></div>
+                    <!-- Rho Slider (Linked) -->
+                    <div class="mb-4 slider-group">
+                        <label class="fw-bold d-flex justify-content-between">
+                            <span>Correlation &rho; (Structure)</span>
+                            <span id="rhoVal" class="text-primary">0.50</span>
+                        </label>
+                        <input type="range" class="form-range" id="rhoSlider" min="0.1" max="0.95" step="0.01" value="0.5">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span class="fw-bold">&rho;<sub>SI</sub> (0.1)</span>
+                            <span>High (0.95)</span>
                         </div>
                     </div>
 
-                    <div class="math-box">
+                    <!-- Beta Slider -->
+                    <div class="mb-4 slider-group">
+                        <label class="fw-bold d-flex justify-content-between">
+                            <span>Variance Scale &beta; (Texture)</span>
+                            <span id="betaVal" class="text-danger">0.50</span>
+                        </label>
+                        <input type="range" class="form-range" id="betaSlider" min="0.05" max="1.5" step="0.01" value="0.5">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Blur (0.05)</span>
+                            <span class="fw-bold text-dark">Realism (1.0)</span>
+                            <span>Noise (1.5)</span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Analysis -->
+                    <div id="analysisBox">
+                        <span id="anaTitle" class="analysis-header">Status</span>
+                        <div id="anaText">Loading theoretical model...</div>
+                    </div>
+
+                    <!-- Metrics Table -->
+                    <div class="d-flex bg-light rounded border mt-4 text-center">
+                        <div class="metric-cell flex-fill">
+                            <div class="metric-label">Distortion D</div>
+                            <div id="valD" class="metric-value text-primary">--</div>
+                        </div>
+                        <div class="metric-cell flex-fill">
+                            <div class="metric-label">Perception P</div>
+                            <div id="valP" class="metric-value text-danger">--</div>
+                        </div>
+                    </div>
+
+                    <!-- Static Math -->
+                    <div class="math-container">
                         $$ D = [(\beta - \rho)^2 + (1 - \rho^2)] \sigma^2 $$
                         $$ P = 0.5 [\ln(\beta^2) + \beta^{-2} - 1] $$
                     </div>
                 </div>
 
-                <!-- Middle: P-D Plot with Inset -->
-                <div class="col-lg-6">
-                    <div id="pdChart" style="height:500px;"></div>
-                </div>
-
-                <!-- Right: Distribution Plot -->
-                <div class="col-lg-3">
-                    <div id="distChart" style="height:250px;"></div>
-                    <div class="alert alert-info small mt-3 p-2">
-                        <strong><i class="fas fa-lightbulb"></i> Insight:</strong><br>
-                        When &rho; is high (e.g., 0.95), the trade-off curve in the main plot shrinks to a dot. <br>
-                        Use the <b>Zoom Inset</b> (top-right) to see the movement!
+                <!-- Right: Plots -->
+                <div class="col-lg-8 ps-4">
+                    <div class="row h-100">
+                        <div class="col-12 mb-3">
+                            <div id="pdChart" style="width: 100%; height: 500px;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="distChart" style="width: 100%; height: 250px;"></div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="p-3 bg-light rounded border small text-muted w-100">
+                                <h6 class="text-dark"><i class="fas fa-search-plus me-2"></i>View Guide</h6>
+                                <ul class="mb-0 ps-3">
+                                    <li><b>R Control:</b> Adjust Bitrate to auto-set &rho;.</li>
+                                    <li><b>Inset Plot:</b> Auto-zooms on the curve.</li>
+                                    <li><b>Solid Line:</b> Valid optimization path (&rho; &le; &beta; &le; 1).</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,177 +194,185 @@
 </div>
 
 <script>
-    const sigma2 = 1.0;
+    // 1. 设置较大的方差，避免 D 看起来太小
+    const sigma2 = 2.5;
 
-    // --- Mathematical Models ---
-    function getD(beta, rho) { return (Math.pow(beta - rho, 2) + (1 - Math.pow(rho, 2))) * sigma2; }
+    // Mathematical Models
+    function getD(beta, rho) {
+        return (Math.pow(beta - rho, 2) + (1 - Math.pow(rho, 2))) * sigma2;
+    }
+    
     function getP(beta) {
         let b = Math.max(beta, 0.01);
         return 0.5 * (Math.log(b * b) + 1.0/(b * b) - 1.0);
     }
+
+    // Rate Calculation: R corresponds to correlation
+    // Formula: rho = sqrt(1 - 2^(-2R))  =>  2^(-2R) = 1 - rho^2
+    function getRhoFromR(R) {
+        if (R <= 0) return 0.01;
+        let term = Math.pow(2, -2 * R);
+        return Math.sqrt(Math.max(0, 1 - term));
+    }
+
+    function getRFromRho(rho) {
+        if (rho >= 1) return 5.0; // High rate
+        let term = 1 - rho*rho;
+        if (term <= 0) return 5.0;
+        return -0.5 * Math.log2(term);
+    }
+    
     function gaussian(x, sigma) {
         return (1.0 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow(x / sigma, 2));
     }
 
-    // --- Explanation Logic ---
-    function updateExplanation(rho, beta) {
-        const box = document.getElementById('dynamicExplainer');
-        const title = document.getElementById('statusTitle');
-        const text = document.getElementById('statusText');
+    // --- Dynamic Analysis (Fix: No LaTeX $) ---
+    function updateAnalysis(rho, beta) {
+        const box = document.getElementById('analysisBox');
+        const title = document.getElementById('anaTitle');
+        const text = document.getElementById('anaText');
         const eps = 0.03;
-        
-        let style = "alert-secondary"; let head = ""; let msg = "";
+
+        let color = "#ccc"; let bgColor = "#f8f9fa"; let headerStr = ""; let contentStr = "";
 
         if (Math.abs(beta - 1.0) <= eps) {
-            style = "alert-success"; head = "🌟 Perfect Perception";
-            msg = "<b>&beta; &approx; 1</b>. Optimal texture restoration. P &rarr; 0.";
-            box.style.cssText = "background:#d1e7dd; border-left-color:#198754; color:#0f5132";
-        } else if (Math.abs(beta - rho) <= eps) {
-            style = "alert-primary"; head = "📉 Distortion Optimized";
-            msg = "<b>&beta; &approx; &rho;</b>. Min MSE, but blurred.";
-            box.style.cssText = "background:#cff4fc; border-left-color:#0d6efd; color:#055160";
-        } else if (beta < rho) {
-            style = "alert-dark"; head = "⚠️ Variance Collapse";
-            msg = "<b>&beta; &lt; &rho;</b>. Suboptimal region (Blurry).";
-            box.style.cssText = "background:#e2e3e5; border-left-color:#6c757d; color:#41464b";
-        } else if (beta > 1.0 + eps) {
-            style = "alert-danger"; head = "🚫 Excessive Noise";
-            msg = "<b>&beta; &gt; 1</b>. Suboptimal region (Noisy).";
-            box.style.cssText = "background:#f8d7da; border-left-color:#dc3545; color:#842029";
-        } else {
-            style = "alert-warning"; head = "⚖️ Valid Trade-off";
-            msg = "<b>&rho; &lt; &beta; &lt; 1</b>. Optimization path.";
-            box.style.cssText = "background:#fff3cd; border-left-color:#ffc107; color:#664d03";
+            color = "#198754"; bgColor = "#d1e7dd"; headerStr = "🌟 Perfect Perception (The object of SPDIC)";
+            contentStr = `<b>State:</b> &beta; &approx; 1.0. The reconstruction variance fully matches the source.<br><br>
+            <b>Analysis:</b> This is the ideal P-D point of <b>SPDIC</b>. By injecting controlled stochasticity, we restore intrinsic texture energy. Although Distortion D is higher than minimum, Perceptual Divergence P approaches 0.`;
         }
-        
-        box.className = `alert p-2 ${style}`;
-        title.innerHTML = head; text.innerHTML = msg;
+        else if (Math.abs(beta - rho) <= eps) {
+            color = "#0d6efd"; bgColor = "#cff4fc"; headerStr = "📉 Distortion Optimized";
+            contentStr = `<b>State:</b> &beta; &approx; &rho; (${rho.toFixed(2)}). Minimized MSE.<br><br>
+            <b>Analysis:</b> Existing DIC methods converge here. To minimize pixel error when &rho; &lt; 1, the model suppresses variance (&beta; &lt; 1), causing <b>"Regression to the Mean"</b> (blurring).`;
+        }
+        else if (beta > rho && beta < 1.0) {
+            color = "#ffc107"; bgColor = "#fff3cd"; headerStr = "⚖️ Valid Trade-off Regime";
+            contentStr = `<b>State:</b> &rho; &lt; &beta; &lt; 1. Traversing the Pareto frontier.<br><br>
+            <b>Analysis:</b> As we increase &beta; from &rho; towards 1, we trade fidelity for realism. We sacrifice PSNR (D increases) to recover high-frequency details (P decreases).`;
+        }
+        else if (beta < rho) {
+            color = "#6c757d"; bgColor = "#e2e3e5"; headerStr = "⚠️ Variance Collapse";
+            contentStr = `<b>State:</b> &beta; &lt; &rho;. Excessive suppression.<br><br>
+            <b>Analysis:</b> Suboptimal region. The image is overly smoothed, losing both structure and texture.`;
+        }
+        else {
+            color = "#dc3545"; bgColor = "#f8d7da"; headerStr = "🚫 Excessive Noise";
+            contentStr = `<b>State:</b> &beta; &gt; 1. Noise accumulation.<br><br>
+            <b>Analysis:</b> Reconstruction has more energy than the original signal, indicating artifacts.`;
+        }
+
+        box.style.borderLeftColor = color; box.style.backgroundColor = bgColor;
+        title.innerHTML = headerStr; title.style.color = (color === "#ffc107") ? "#664d03" : color;
+        text.innerHTML = contentStr;
     }
 
-    // --- Main Update Loop ---
-    function updateCharts() {
-        let rho = parseFloat(document.getElementById('rhoSlider').value);
-        let beta = parseFloat(document.getElementById('betaSlider').value);
+    // --- Interaction Logic ---
+    const s_rho = document.getElementById('rhoSlider');
+    const s_beta = document.getElementById('betaSlider');
+    const s_rate = document.getElementById('rateSlider');
 
+    // Link Rate -> Rho
+    s_rate.addEventListener('input', function() {
+        let R = parseFloat(this.value);
+        let newRho = getRhoFromR(R);
+        // Clamp rho to slider limits
+        if(newRho > 0.95) newRho = 0.95; 
+        if(newRho < 0.1) newRho = 0.1;
+        s_rho.value = newRho;
+        updateCharts();
+    });
+
+    // Link Rho -> Rate
+    s_rho.addEventListener('input', function() {
+        let rho = parseFloat(this.value);
+        let newR = getRFromRho(rho);
+        s_rate.value = newR;
+        updateCharts();
+    });
+
+    s_beta.addEventListener('input', updateCharts);
+
+    // --- Plotting ---
+    function updateCharts() {
+        let rho = parseFloat(s_rho.value);
+        let beta = parseFloat(s_beta.value);
+        let rate = parseFloat(s_rate.value);
+
+        // Update Labels
         document.getElementById('rhoVal').innerText = rho.toFixed(2);
         document.getElementById('betaVal').innerText = beta.toFixed(2);
-        let currD = getD(beta, rho); let currP = getP(beta);
+        document.getElementById('rateVal').innerText = rate.toFixed(2);
+        
+        let currD = getD(beta, rho);
+        let currP = getP(beta);
+
         document.getElementById('valD').innerText = currD.toFixed(3);
         document.getElementById('valP').innerText = currP.toFixed(3);
-        updateExplanation(rho, beta);
 
-        // 1. Data Generation
+        updateAnalysis(rho, beta);
+
+        // Generation
         let genData = (start, end, step) => {
-            let x=[], y=[];
-            for(let b=start; b<=end; b+=step) { x.push(getD(b, rho)); y.push(getP(b)); }
-            return {x, y};
+            let x=[], y=[]; for(let b=start; b<=end; b+=step) { x.push(getD(b, rho)); y.push(getP(b)); } return {x, y};
         };
 
-        // - Blurry (beta < rho)
-        let blurData = genData(0.1, rho, 0.01);
-        // - Trade-off (rho <= beta <= 1)
+        let blurData = genData(0.05, rho, 0.01);
         let tradeData = genData(rho, 1.0, 0.005);
-        if (tradeData.x.length === 0) { // Safety for rho=1 case
-             tradeData = {x: [getD(1.0, rho)], y: [getP(1.0)]};
-        }
-        // - Noisy (beta > 1)
+        if(tradeData.x.length === 0) tradeData = {x:[getD(1.0,rho)], y:[getP(1.0)]}; 
         let noiseData = genData(1.0, 1.5, 0.01);
 
-        // Points
         let minD = {x:[getD(rho, rho)], y:[getP(rho)]};
         let ideal = {x:[getD(1.0, rho)], y:[getP(1.0)]};
         let curr = {x:[currD], y:[currP]};
 
-        // --- Traces for Main Plot ---
-        let tBlur = {x:blurData.x, y:blurData.y, mode:'lines', name:'Blurry', line:{color:'#bbb', width:2, dash:'dot'}};
-        let tTrade = {x:tradeData.x, y:tradeData.y, mode:'lines', name:'Trade-off', line:{color:'#0d6efd', width:4}};
-        let tNoise = {x:noiseData.x, y:noiseData.y, mode:'lines', name:'Noisy', line:{color:'#999', width:2, dash:'dot'}};
+        // Traces
+        let tBlur = {x:blurData.x, y:blurData.y, mode:'lines', line:{color:'#ccc', width:2, dash:'dash'}, hoverinfo:'skip'};
+        let tTrade = {x:tradeData.x, y:tradeData.y, mode:'lines', line:{color:'#0d6efd', width:4}};
+        let tNoise = {x:noiseData.x, y:noiseData.y, mode:'lines', line:{color:'#ccc', width:2, dash:'dash'}, hoverinfo:'skip'};
         
         let tPts = {
             x:[minD.x[0], ideal.x[0]], y:[minD.y[0], ideal.y[0]], mode:'markers',
-            marker:{color:['black', '#198754'], size:8, symbol:['diamond', 'star']}, hoverinfo:'none'
+            marker:{color:['#333', '#198754'], size:10, symbol:['diamond', 'star']}, hoverinfo:'none'
         };
         let tCurr = {
-            x:curr.x, y:curr.y, mode:'markers', name:'Current',
-            marker:{color:'#d62728', size:12, line:{color:'white', width:2}}
+            x:curr.x, y:curr.y, mode:'markers', marker:{color:'#d62728', size:14, line:{color:'white', width:2}}, name:'Current'
         };
 
-        // --- Traces for Inset (Zoom) ---
-        // Duplicate traces but assigned to axis 2
-        let tTradeZoom = {
-            x: tradeData.x, y: tradeData.y, mode: 'lines', xaxis: 'x2', yaxis: 'y2',
-            line: {color: '#0d6efd', width: 3}, showlegend: false, hoverinfo: 'skip'
-        };
-        let tCurrZoom = {
-            x: curr.x, y: curr.y, mode: 'markers', xaxis: 'x2', yaxis: 'y2',
-            marker: {color: '#d62728', size: 10, line:{color:'white', width:1}}, showlegend: false
-        };
-        let tPtsZoom = {
-            x:[minD.x[0], ideal.x[0]], y:[minD.y[0], ideal.y[0]], mode:'markers', xaxis: 'x2', yaxis: 'y2',
-            marker:{color:['black', '#198754'], size:8, symbol:['diamond', 'star']}, showlegend: false, hoverinfo: 'skip'
-        };
-
-        // --- Calculate Zoom Range ---
-        // Find min/max of the TRADE-OFF segment only
-        let xVals = tradeData.x;
-        let yVals = tradeData.y;
+        // Inset Traces
+        let tTradeZoom = {x:tradeData.x, y:tradeData.y, mode:'lines', xaxis:'x2', yaxis:'y2', line:{color:'#0d6efd', width:3}, showlegend:false, hoverinfo:'skip'};
+        let tCurrZoom = {x:curr.x, y:curr.y, mode:'markers', xaxis:'x2', yaxis:'y2', marker:{color:'#d62728', size:10, line:{color:'white', width:1}}, showlegend:false};
         
-        let xMinZ = Math.min(...xVals); let xMaxZ = Math.max(...xVals);
-        let yMinZ = Math.min(...yVals); let yMaxZ = Math.max(...yVals);
-        
-        // Add 10% padding
-        let xPad = (xMaxZ - xMinZ) * 0.1 || 0.005;
-        let yPad = (yMaxZ - yMinZ) * 0.1 || 0.05;
+        let xMinZ = Math.min(...tradeData.x); let xMaxZ = Math.max(...tradeData.x);
+        let yMinZ = Math.min(...tradeData.y); let yMaxZ = Math.max(...tradeData.y);
+        let xPad = (xMaxZ - xMinZ)*0.1 || 0.01; let yPad = (yMaxZ - yMinZ)*0.1 || 0.05;
 
-        // --- Plot Layout ---
+        // Scale max range based on sigma2 to look good
+        let maxD_Global = getD(1.0, 0.1) * 1.1; 
+
         let layoutPD = {
             title: '<b>P-D Trade-off Curve</b>',
-            // Main Axis: Global View
-            xaxis: {title: 'Distortion D', range: [-0.05, 1.2], domain: [0, 1]},
-            yaxis: {title: 'Perception P', range: [-0.1, 1.5], domain: [0, 1]}, // Fixed range to show Noisy curve lift
-            
-            // Inset Axis: Zoom View (Top Right)
-            xaxis2: {
-                domain: [0.6, 0.95], anchor: 'y2',
-                range: [xMinZ - xPad, xMaxZ + xPad],
-                title: 'Zoom: Trade-off Region', titlefont: {size: 10, color: '#0d6efd'},
-                tickfont: {size: 9}
-            },
-            yaxis2: {
-                domain: [0.6, 0.95], anchor: 'x2',
-                range: [yMinZ - yPad, yMaxZ + yPad],
-                tickfont: {size: 9}
-            },
-            
-            showlegend: false,
-            margin: {l: 50, r: 20, t: 40, b: 30},
-            
-            // Draw a box around inset
-            shapes: [{
-                type: 'rect', xref: 'paper', yref: 'paper',
-                x0: 0.6, y0: 0.6, x1: 0.95, y1: 0.95,
-                line: {color: '#ccc', width: 1}
-            }]
+            xaxis: {title: 'Distortion D', range: [-0.1, maxD_Global], domain: [0, 1]},
+            yaxis: {title: 'Perception P', range: [-0.1, 4.5], domain: [0, 1]},
+            xaxis2: {domain: [0.05, 0.45], anchor: 'y2', range: [xMinZ - xPad, xMaxZ + xPad], title: 'Zoom: Trade-off', titlefont: {size:10, color:'#0d6efd'}, tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
+            yaxis2: {domain: [0.55, 0.95], anchor: 'x2', range: [yMinZ - yPad, yMaxZ + yPad], tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
+            showlegend: false, margin: {l:60, r:20, t:50, b:50},
+            shapes: [{type:'rect', xref:'paper', yref:'paper', x0:0.05, y0:0.55, x1:0.45, y1:0.95, line:{color:'#ccc'}}]
         };
 
-        // --- Distribution Plot ---
-        let xR = []; for(let i=-4; i<=4; i+=0.1) xR.push(i);
-        let dO = xR.map(x=>gaussian(x, 1.0));
-        let dR = xR.map(x=>gaussian(x, beta));
-        let traceDO = {x:xR, y:dO, fill:'tozeroy', line:{width:0, color:'#0d6efd'}};
-        let traceDR = {x:xR, y:dR, mode:'lines', line:{width:3, color:'#d62728'}};
-        let layoutDist = {
-            title: `<b>Distribution (β=${beta.toFixed(2)})</b>`,
-            xaxis: {title: '', showticklabels: false}, yaxis: {range: [0, 1.0]},
-            showlegend: false, margin: {l:30, r:10, t:30, b:30}
-        };
+        // Dist Plot - Scale x range by sqrt(sigma2)
+        let sigma = Math.sqrt(sigma2);
+        let xR = []; for(let i=-4*sigma; i<=4*sigma; i+=0.1) xR.push(i);
+        let dO = xR.map(x=>gaussian(x, sigma)); // sigma = sqrt(2.5)
+        let dR = xR.map(x=>gaussian(x, beta * sigma)); // sigma_hat = beta * sigma
+        
+        let tDO = {x:xR, y:dO, fill:'tozeroy', line:{width:0, color:'#0d6efd'}};
+        let tDR = {x:xR, y:dR, mode:'lines', line:{width:3, color:'#d62728'}};
+        let lDist = {title: `<b>Distribution (β=${beta.toFixed(2)})</b>`, xaxis: {title: '', showticklabels:false}, yaxis: {range:[0, 1.0/sigma*1.2]}, showlegend: false, margin: {l:40, r:10, t:40, b:30}};
 
-        Plotly.react('pdChart', [tBlur, tTrade, tNoise, tPts, tCurr, tTradeZoom, tPtsZoom, tCurrZoom], layoutPD);
-        Plotly.react('distChart', [traceDO, traceDR], layoutDist);
+        Plotly.react('pdChart', [tBlur, tTrade, tNoise, tPts, tCurr, tTradeZoom, tCurrZoom], layoutPD);
+        Plotly.react('distChart', [tDO, tDR], lDist);
     }
 
-    document.getElementById('rhoSlider').addEventListener('input', updateCharts);
-    document.getElementById('betaSlider').addEventListener('input', updateCharts);
     updateCharts();
 </script>
 
