@@ -74,7 +74,6 @@
             border-radius: 8px; font-size: 0.9rem; text-align: center; border: 1px solid #dbeafe;
         }
         
-        /* New Slider Style */
         .slider-group { background: #fdfdfd; padding: 10px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 15px; }
     </style>
 </head>
@@ -84,8 +83,7 @@
     <div class="container">
         <h1 class="paper-title">Perceptual Distributed Image Compression:<br>Only Need Stochasticity</h1>
         <div class="authors">Guojun Xu<sup>1</sup>, Jianwen Xiang<sup>2</sup>, Mingyang Zhang<sup>3</sup>, Junwei Zhou<sup>4</sup></div>
-        <div class="affiliations"><sup>1</sup> School of Computer Science and Artificial Intelligence, Wuhan
-University of Technology</div>
+        <div class="affiliations"><sup>1</sup> School of Computer Science and Artificial Intelligence, Wuhan University of Technology</div>
         <a href="https://github.com/Mommqq/SPDIC" target="_blank" class="btn-black"><i class="fab fa-github me-2"></i>Code & Models</a>
     </div>
 </div>
@@ -106,17 +104,7 @@ University of Technology</div>
                 <!-- Left: Controls -->
                 <div class="col-lg-4 border-end pe-4">
                     
-                    <!-- NEW: Bitrate R Slider -->
-                    <div class="slider-group">
-                        <label class="fw-bold d-flex justify-content-between text-dark">
-                            <span><i class="fas fa-signal me-2"></i>Target Bitrate R</span>
-                            <span id="rateVal" class="text-dark">0.50</span>
-                        </label>
-                        <input type="range" class="form-range" id="rateSlider" min="0.01" max="2.0" step="0.01" value="0.5">
-                        <div class="small text-muted fst-italic">Controls Correlation &rho; (Linked)</div>
-                    </div>
-
-                    <!-- Rho Slider (Linked) -->
+                    <!-- Rho Slider -->
                     <div class="mb-4 slider-group">
                         <label class="fw-bold d-flex justify-content-between">
                             <span>Correlation &rho; (Structure)</span>
@@ -163,7 +151,7 @@ University of Technology</div>
 
                     <!-- Static Math -->
                     <div class="math-container">
-                        $$ D = [(\beta - \rho)^2 + (1 - \rho^2)] \sigma^2 $$
+                        $$ D =[(\beta - \rho)^2 + (1 - \rho^2)] \sigma^2 $$
                         $$ P = 0.5 [\ln(\beta^2) + \beta^{-2} - 1] $$
                     </div>
                 </div>
@@ -181,7 +169,7 @@ University of Technology</div>
                             <div class="p-3 bg-light rounded border small text-muted w-100">
                                 <h6 class="text-dark"><i class="fas fa-search-plus me-2"></i>View Guide</h6>
                                 <ul class="mb-0 ps-3">
-                                    <li><b>R Control:</b> Adjust Bitrate to auto-set &rho;.</li>
+                                    <li><b>&rho; Control:</b> Adjust structural correlation limits.</li>
                                     <li><b>Inset Plot:</b> Auto-zooms on the curve.</li>
                                     <li><b>Solid Line:</b> Valid optimization path (&rho; &le; &beta; &le; 1).</li>
                                 </ul>
@@ -195,7 +183,7 @@ University of Technology</div>
 </div>
 
 <script>
-    // 1. 设置较大的方差，避免 D 看起来太小
+    // 1. Fixed Source Variance
     const sigma2 = 2.5;
 
     // Mathematical Models
@@ -207,27 +195,12 @@ University of Technology</div>
         let b = Math.max(beta, 0.01);
         return 0.5 * (Math.log(b * b) + 1.0/(b * b) - 1.0);
     }
-
-    // Rate Calculation: R corresponds to correlation
-    // Formula: rho = sqrt(1 - 2^(-2R))  =>  2^(-2R) = 1 - rho^2
-    function getRhoFromR(R) {
-        if (R <= 0) return 0.01;
-        let term = Math.pow(2, -2 * R);
-        return Math.sqrt(Math.max(0, 1 - term));
-    }
-
-    function getRFromRho(rho) {
-        if (rho >= 1) return 5.0; // High rate
-        let term = 1 - rho*rho;
-        if (term <= 0) return 5.0;
-        return -0.5 * Math.log2(term);
-    }
     
     function gaussian(x, sigma) {
         return (1.0 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow(x / sigma, 2));
     }
 
-    // --- Dynamic Analysis (Fix: No LaTeX $) ---
+    // --- Dynamic Analysis Updates ---
     function updateAnalysis(rho, beta) {
         const box = document.getElementById('analysisBox');
         const title = document.getElementById('anaTitle');
@@ -270,39 +243,19 @@ University of Technology</div>
     // --- Interaction Logic ---
     const s_rho = document.getElementById('rhoSlider');
     const s_beta = document.getElementById('betaSlider');
-    const s_rate = document.getElementById('rateSlider');
 
-    // Link Rate -> Rho
-    s_rate.addEventListener('input', function() {
-        let R = parseFloat(this.value);
-        let newRho = getRhoFromR(R);
-        // Clamp rho to slider limits
-        if(newRho > 0.95) newRho = 0.95; 
-        if(newRho < 0.1) newRho = 0.1;
-        s_rho.value = newRho;
-        updateCharts();
-    });
-
-    // Link Rho -> Rate
-    s_rho.addEventListener('input', function() {
-        let rho = parseFloat(this.value);
-        let newR = getRFromRho(rho);
-        s_rate.value = newR;
-        updateCharts();
-    });
-
+    // Only listen to rho and beta now
+    s_rho.addEventListener('input', updateCharts);
     s_beta.addEventListener('input', updateCharts);
 
     // --- Plotting ---
     function updateCharts() {
         let rho = parseFloat(s_rho.value);
         let beta = parseFloat(s_beta.value);
-        let rate = parseFloat(s_rate.value);
 
         // Update Labels
         document.getElementById('rhoVal').innerText = rho.toFixed(2);
         document.getElementById('betaVal').innerText = beta.toFixed(2);
-        document.getElementById('rateVal').innerText = rate.toFixed(2);
         
         let currD = getD(beta, rho);
         let currP = getP(beta);
@@ -312,9 +265,14 @@ University of Technology</div>
 
         updateAnalysis(rho, beta);
 
-        // Generation
+        // Generation of curve data
         let genData = (start, end, step) => {
-            let x=[], y=[]; for(let b=start; b<=end; b+=step) { x.push(getD(b, rho)); y.push(getP(b)); } return {x, y};
+            let x=[], y=[]; 
+            for(let b=start; b<=end; b+=step) { 
+                x.push(getD(b, rho)); 
+                y.push(getP(b)); 
+            } 
+            return {x, y};
         };
 
         let blurData = genData(0.05, rho, 0.01);
@@ -326,7 +284,7 @@ University of Technology</div>
         let ideal = {x:[getD(1.0, rho)], y:[getP(1.0)]};
         let curr = {x:[currD], y:[currP]};
 
-        // Traces
+        // Traces for Main Plot
         let tBlur = {x:blurData.x, y:blurData.y, mode:'lines', line:{color:'#ccc', width:2, dash:'dash'}, hoverinfo:'skip'};
         let tTrade = {x:tradeData.x, y:tradeData.y, mode:'lines', line:{color:'#0d6efd', width:4}};
         let tNoise = {x:noiseData.x, y:noiseData.y, mode:'lines', line:{color:'#ccc', width:2, dash:'dash'}, hoverinfo:'skip'};
@@ -339,7 +297,7 @@ University of Technology</div>
             x:curr.x, y:curr.y, mode:'markers', marker:{color:'#d62728', size:14, line:{color:'white', width:2}}, name:'Current'
         };
 
-        // Inset Traces
+        // Inset Traces (Zoomed view)
         let tTradeZoom = {x:tradeData.x, y:tradeData.y, mode:'lines', xaxis:'x2', yaxis:'y2', line:{color:'#0d6efd', width:3}, showlegend:false, hoverinfo:'skip'};
         let tCurrZoom = {x:curr.x, y:curr.y, mode:'markers', xaxis:'x2', yaxis:'y2', marker:{color:'#d62728', size:10, line:{color:'white', width:1}}, showlegend:false};
         
@@ -347,38 +305,36 @@ University of Technology</div>
         let yMinZ = Math.min(...tradeData.y); let yMaxZ = Math.max(...tradeData.y);
         let xPad = (xMaxZ - xMinZ)*0.1 || 0.01; let yPad = (yMaxZ - yMinZ)*0.1 || 0.05;
 
-        // Scale max range based on sigma2 to look good
+        // Scale max range based on sigma2 to look consistent
         let maxD_Global = getD(1.0, 0.1) * 1.1; 
 
         let layoutPD = {
             title: '<b>P-D Trade-off Curve</b>',
-            xaxis: {title: 'Distortion D', range: [-0.1, maxD_Global], domain: [0, 1]},
-            yaxis: {title: 'Perception P', range: [-0.1, 4.5], domain: [0, 1]},
-            xaxis2: {domain: [0.05, 0.45], anchor: 'y2', range: [xMinZ - xPad, xMaxZ + xPad], title: 'Zoom: Trade-off', titlefont: {size:10, color:'#0d6efd'}, tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
-            yaxis2: {domain: [0.55, 0.95], anchor: 'x2', range: [yMinZ - yPad, yMaxZ + yPad], tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
+            xaxis: {title: 'Distortion D', range:[-0.1, maxD_Global], domain: [0, 1]},
+            yaxis: {title: 'Perception P', range:[-0.1, 4.5], domain: [0, 1]},
+            xaxis2: {domain: [0.05, 0.45], anchor: 'y2', range:[xMinZ - xPad, xMaxZ + xPad], title: 'Zoom: Trade-off', titlefont: {size:10, color:'#0d6efd'}, tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
+            yaxis2: {domain:[0.55, 0.95], anchor: 'x2', range:[yMinZ - yPad, yMaxZ + yPad], tickfont: {size: 9}, showgrid: true, gridcolor: '#f0f0f0'},
             showlegend: false, margin: {l:60, r:20, t:50, b:50},
-            shapes: [{type:'rect', xref:'paper', yref:'paper', x0:0.05, y0:0.55, x1:0.45, y1:0.95, line:{color:'#ccc'}}]
+            shapes:[{type:'rect', xref:'paper', yref:'paper', x0:0.05, y0:0.55, x1:0.45, y1:0.95, line:{color:'#ccc'}}]
         };
 
-        // Dist Plot - Scale x range by sqrt(sigma2)
+        // Dist Plot
         let sigma = Math.sqrt(sigma2);
-        let xR = []; for(let i=-4*sigma; i<=4*sigma; i+=0.1) xR.push(i);
-        let dO = xR.map(x=>gaussian(x, sigma)); // sigma = sqrt(2.5)
-        let dR = xR.map(x=>gaussian(x, beta * sigma)); // sigma_hat = beta * sigma
+        let xR =[]; for(let i=-4*sigma; i<=4*sigma; i+=0.1) xR.push(i);
+        let dO = xR.map(x=>gaussian(x, sigma));
+        let dR = xR.map(x=>gaussian(x, beta * sigma));
         
         let tDO = {x:xR, y:dO, fill:'tozeroy', line:{width:0, color:'#0d6efd'}};
         let tDR = {x:xR, y:dR, mode:'lines', line:{width:3, color:'#d62728'}};
         let lDist = {title: `<b>Distribution (β=${beta.toFixed(2)})</b>`, xaxis: {title: '', showticklabels:false}, yaxis: {range:[0, 1.0/sigma*1.2]}, showlegend: false, margin: {l:40, r:10, t:40, b:30}};
 
-        Plotly.react('pdChart', [tBlur, tTrade, tNoise, tPts, tCurr, tTradeZoom, tCurrZoom], layoutPD);
-        Plotly.react('distChart', [tDO, tDR], lDist);
+        Plotly.react('pdChart',[tBlur, tTrade, tNoise, tPts, tCurr, tTradeZoom, tCurrZoom], layoutPD);
+        Plotly.react('distChart',[tDO, tDR], lDist);
     }
 
+    // Initialize on load
     updateCharts();
 </script>
 
 </body>
 </html>
-
-
-
