@@ -70,20 +70,6 @@ p { margin: 0 0 16px; }
 .paper-figure.compact { max-width: 890px; }
 .paper-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: white; }
 figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.5; }
-.qualitative-section { margin-top: 56px; padding-top: 34px; border-top: 1px solid var(--line); }
-.qualitative-section .section-heading { margin-bottom: 26px; }
-.qualitative-section h3 { font: 700 26px/1.25 Georgia, "Times New Roman", serif; }
-.qualitative-group + .qualitative-group { margin-top: 38px; }
-.qualitative-title { margin: 0 0 12px; color: var(--ink); font-size: 15px; font-weight: 650; }
-.qualitative-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-.qualitative-grid figure { margin: 0; min-width: 0; }
-.qualitative-grid img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border: 1px solid var(--line); background: white; }
-.qualitative-grid figcaption { margin-top: 7px; color: var(--ink); font-size: 12px; line-height: 1.35; text-align: center; }
-.qualitative-grid figcaption span { color: var(--muted); font-size: 11px; white-space: nowrap; }
-.qualitative-note { margin: 20px 0 0; color: var(--muted); font-size: 13px; }
-.footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
-.footer .container { padding: 24px 0 36px; }
-
 @media (max-width: 760px) {
   .container { width: min(100% - 32px, 1040px); }
   .nav { align-items: flex-start; padding: 15px 0; }
@@ -91,7 +77,6 @@ figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height
   .hero-inner { padding: 51px 0 48px; }
   .section { padding: 47px 0; }
   .overview, .equations, .regimes { grid-template-columns: 1fr; gap: 14px; }
-  .qualitative-grid { grid-template-columns: repeat(2, 1fr); gap: 16px 10px; }
   .analysis-card { padding: 18px; }
   .analysis-header { display: block; }
   .analysis-header label { display: block; margin-bottom: 8px; }
