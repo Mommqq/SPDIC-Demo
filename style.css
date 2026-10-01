@@ -1,0 +1,100 @@
+:root {
+  --ink: #1c292e;
+  --muted: #5b686e;
+  --line: #dce2e3;
+  --accent: #245d67;
+  --paper: #ffffff;
+  --wash: #f7f9f9;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); }
+.container { width: min(1040px, calc(100% - 48px)); margin: 0 auto; }
+
+.site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 66px; }
+.brand { color: var(--ink); font-weight: 800; letter-spacing: .08em; text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; font-size: 14px; }
+.nav-links a { color: var(--muted); text-decoration: none; }
+.nav-links a:hover { color: var(--accent); }
+
+.hero { background: var(--wash); border-bottom: 1px solid var(--line); }
+.hero-inner { padding: 73px 0 68px; }
+.kicker, .section-label { color: var(--accent); font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+.kicker { margin: 0 0 16px; }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+h1 { max-width: 900px; margin: 0 0 23px; font-size: clamp(36px, 4.6vw, 58px); font-weight: 700; line-height: 1.14; }
+.authors { margin: 0; font-size: 17px; }
+.authors span, .footer span { color: #879397; padding: 0 5px; }
+.affiliation { margin: 6px 0 24px; color: var(--muted); font-size: 14px; }
+.button { display: inline-block; padding: 8px 17px; border: 1px solid var(--accent); border-radius: 4px; color: var(--accent); font-size: 14px; font-weight: 650; text-decoration: none; }
+.button:hover { background: var(--accent); color: white; }
+
+.section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.section:last-child { border-bottom: 0; }
+.section-heading { margin-bottom: 22px; }
+.section-label { display: block; margin-bottom: 9px; }
+h2 { max-width: 820px; margin: 0; font-size: clamp(27px, 3.2vw, 37px); line-height: 1.25; }
+h3 { margin: 0; font-size: 18px; line-height: 1.35; }
+p { margin: 0 0 16px; }
+.lead { max-width: 870px; font-size: 17px; }
+.overview { display: grid; grid-template-columns: 1fr 1.5fr; gap: 45px; }
+.overview .section-heading { margin: 0; }
+.section-body { max-width: 690px; }
+.section-body p:last-child { margin-bottom: 0; }
+
+.equations { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 26px 0 15px; }
+.equation { padding: 18px 21px; border: 1px solid var(--line); border-left: 3px solid var(--accent); background: var(--wash); }
+.equation span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; }
+.equation div { font: 21px/1.5 Georgia, "Times New Roman", serif; white-space: nowrap; overflow-x: auto; }
+.measure-note { color: var(--muted); font-size: 14px; }
+
+.analysis-card { margin: 29px 0 23px; padding: 23px 25px 19px; border: 1px solid var(--line); border-radius: 6px; }
+.analysis-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.analysis-header p { margin: 5px 0 12px; color: var(--muted); font-size: 14px; }
+.analysis-header label { flex: none; margin-top: 2px; font-size: 14px; }
+.analysis-card input[type=range] { display: block; width: min(350px, 100%); margin: 3px 0 16px; accent-color: var(--accent); }
+#theoryPlot { display: block; width: 100%; height: 300px; border: 1px solid var(--line); border-radius: 3px; }
+.plot-key { display: flex; gap: 24px; margin: 9px 0 0; color: var(--muted); font-size: 13px; }
+.plot-key i { display: inline-block; width: 24px; margin-right: 6px; border-top: 2px solid var(--ink); vertical-align: middle; }
+.plot-key i.dash { border-top-style: dashed; }
+.cost { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+.regimes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 20px 0 28px; }
+.regimes p { padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.regimes strong { color: var(--ink); }
+
+.paper-figure { margin: 28px 0 0; }
+.paper-figure + .paper-figure { margin-top: 44px; }
+.paper-figure.compact { max-width: 890px; }
+.paper-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: white; }
+figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.qualitative-section { margin-top: 56px; padding-top: 34px; border-top: 1px solid var(--line); }
+.qualitative-section .section-heading { margin-bottom: 26px; }
+.qualitative-section h3 { font: 700 26px/1.25 Georgia, "Times New Roman", serif; }
+.qualitative-group + .qualitative-group { margin-top: 38px; }
+.qualitative-title { margin: 0 0 12px; color: var(--ink); font-size: 15px; font-weight: 650; }
+.qualitative-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.qualitative-grid figure { margin: 0; min-width: 0; }
+.qualitative-grid img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border: 1px solid var(--line); background: white; }
+.qualitative-grid figcaption { margin-top: 7px; color: var(--ink); font-size: 12px; line-height: 1.35; text-align: center; }
+.qualitative-grid figcaption span { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.qualitative-note { margin: 20px 0 0; color: var(--muted); font-size: 13px; }
+.footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footer .container { padding: 24px 0 36px; }
+
+@media (max-width: 760px) {
+  .container { width: min(100% - 32px, 1040px); }
+  .nav { align-items: flex-start; padding: 15px 0; }
+  .nav-links { gap: 13px; }
+  .hero-inner { padding: 51px 0 48px; }
+  .section { padding: 47px 0; }
+  .overview, .equations, .regimes { grid-template-columns: 1fr; gap: 14px; }
+  .qualitative-grid { grid-template-columns: repeat(2, 1fr); gap: 16px 10px; }
+  .analysis-card { padding: 18px; }
+  .analysis-header { display: block; }
+  .analysis-header label { display: block; margin-bottom: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
