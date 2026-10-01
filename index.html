@@ -25,9 +25,9 @@
       <div class="container hero-inner">
         <p class="kicker">Distributed image compression</p>
         <h1>Perceptual Distributed Image Compression via Controlled Stochastic Reconstruction</h1>
-        <p class="authors">Guojun Xu <span>·</span> Jianwen Xiang <span>·</span> Yaning Xie <span>·</span> Junwei Zhou</p>
+        <p class="authors">Guojun Xu <span>&middot;</span> Jianwen Xiang <span>&middot;</span> Yaning Xie <span>&middot;</span> Junwei Zhou</p>
         <p class="affiliation">School of Computer Science and Artificial Intelligence, Wuhan University of Technology</p>
-        <a class="button" href="https://github.com/Mommqq/SPDIC">View code <span aria-hidden="true">↗</span></a>
+        <a class="button" href="https://github.com/Mommqq/SPDIC">View code</a>
       </div>
     </section>
 
@@ -42,32 +42,32 @@
 
       <section id="theory" class="section" aria-labelledby="theory-title">
         <div class="section-heading"><span class="section-label">Theory</span><h2 id="theory-title">Reconstruction scale and correspondence</h2></div>
-        <p class="lead">For corresponding samples in a local block and channel, let β = σ<sub>X̂</sub>/σ<sub>X</sub> and ρ = Corr(X, X̂). With equal local means (δ = 0),</p>
+        <p class="lead">For corresponding samples in a local block and channel, let &beta; = &sigma;<sub>X-hat</sub>/&sigma;<sub>X</sub> and &rho; = Corr(X, X-hat). With equal local means (&delta; = 0),</p>
         <div class="equations">
-          <div class="equation"><span>Normalized distortion</span><div>D/σ<sub>X</sub><sup>2</sup> = 1 + β<sup>2</sup> − 2ρβ</div></div>
-          <div class="equation"><span>Gaussian marginal discrepancy</span><div>P<sub>G</sub> = ½ [log(β<sup>2</sup>) + β<sup>−2</sup> − 1]</div></div>
+          <div class="equation"><span>Normalized distortion</span><div>D/&sigma;<sub>X</sub><sup>2</sup> = 1 + &beta;<sup>2</sup> &minus; 2&rho;&beta;</div></div>
+          <div class="equation"><span>Gaussian marginal discrepancy</span><div>P<sub>G</sub> = &frac12; [log(&beta;<sup>2</sup>) + &beta;<sup>&minus;2</sup> &minus; 1]</div></div>
         </div>
-        <p class="measure-note">P<sub>G</sub> describes local Gaussian marginals. It is distinct from LPIPS and the other image metrics reported below.</p>
+        <p class="measure-note">P<sub>G</sub> describes local Gaussian marginals. The image comparisons below use BPP, PSNR, and LPIPS.</p>
 
         <div class="analysis-card">
           <div class="analysis-header">
-            <div><h3>Change the target correspondence</h3><p>Move ρ to examine the distortion cost of restoring β toward 1.</p></div>
-            <label for="rho">ρ = <strong id="rhoValue">0.70</strong></label>
+            <div><h3>Change the target correspondence</h3><p>Move &rho; to examine the distortion cost of restoring &beta; toward 1.</p></div>
+            <label for="rho">&rho; = <strong id="rhoValue">0.70</strong></label>
           </div>
           <input id="rho" type="range" min="0.30" max="0.90" step="0.01" value="0.70">
           <canvas id="theoryPlot" role="img" aria-label="Normalized distortion and local Gaussian discrepancy as functions of beta"></canvas>
-          <div class="plot-key"><span><i></i>D/σ<sub>X</sub><sup>2</sup></span><span><i class="dash"></i>P<sub>G</sub></span></div>
+          <div class="plot-key"><span><i></i>D/&sigma;<sub>X</sub><sup>2</sup></span><span><i class="dash"></i>P<sub>G</sub></span></div>
           <p id="cost" class="cost"></p>
         </div>
 
         <div class="regimes">
-          <p><strong>β &lt; ρ</strong><br>Distortion and P<sub>G</sub> both decrease as β rises.</p>
-          <p><strong>ρ &lt; β &lt; 1</strong><br>Lower P<sub>G</sub> comes with higher distortion.</p>
-          <p><strong>β &gt; 1</strong><br>Distortion and P<sub>G</sub> both increase.</p>
+          <p><strong>&beta; &lt; &rho;</strong><br>Distortion and P<sub>G</sub> both decrease as &beta; rises.</p>
+          <p><strong>&rho; &lt; &beta; &lt; 1</strong><br>Lower P<sub>G</sub> comes with higher distortion.</p>
+          <p><strong>&beta; &gt; 1</strong><br>Distortion and P<sub>G</sub> both increase.</p>
         </div>
         <figure class="paper-figure compact">
           <img src="assets/figure1.png" alt="Local Gaussian analysis of reconstruction scale and correspondence" loading="lazy">
-          <figcaption>Fig. 1. Local Gaussian analysis of the P–D behavior.</figcaption>
+          <figcaption>Fig. 1. Local Gaussian analysis of the P-D behavior.</figcaption>
         </figure>
       </section>
 
@@ -82,10 +82,10 @@
 
       <section id="results" class="section" aria-labelledby="results-title">
         <div class="section-heading"><span class="section-label">Experiments</span><h2 id="results-title">KITTI Stereo and Cityscapes</h2></div>
-        <p class="lead">We evaluate reconstruction at 128 × 256 resolution. The rate–perception curves include LPIPS, FID, DISTS, KID, and NIQE. The results vary across metrics and operating points, particularly on KITTI Stereo.</p>
+        <p class="lead">We evaluate reconstruction at 128 &times; 256 resolution. The image comparisons report BPP, PSNR, and LPIPS.</p>
         <figure class="paper-figure">
-          <img src="assets/figure3.png" alt="Rate–perception comparison on KITTI Stereo and Cityscapes" loading="lazy">
-          <figcaption>Fig. 3. Quantitative comparison. Lower values indicate better results for the five plotted metrics.</figcaption>
+          <img src="assets/figure3.png" alt="Quantitative comparison on KITTI Stereo and Cityscapes" loading="lazy">
+          <figcaption>Fig. 3. Quantitative comparison on KITTI Stereo and Cityscapes.</figcaption>
         </figure>
         <figure class="paper-figure">
           <img src="assets/figure4.png" alt="Cityscapes reconstruction comparison with ATN, MDIC, CODIC, and SPDIC" loading="lazy">
@@ -109,7 +109,7 @@
             <div class="qualitative-grid">
               <figure><img src="assets/qualitative/city0336_gt.png" alt="Cityscapes sample 0336 ground truth" loading="lazy"><figcaption>Ground truth</figcaption></figure>
               <figure><img src="assets/qualitative/city0336_atn.png" alt="Cityscapes sample 0336 ATN reconstruction" loading="lazy"><figcaption>ATN<br><span>0.0191 / 30.04 / 0.4064</span></figcaption></figure>
-              <figure><img src="assets/qualitative/city0336_mdic.png" alt="Cityscapes sample 0336 MDIC reconstruction" loading="lazy"><figcaption>MDIC<br><span>n/a / 26.22 / 0.2373</span></figcaption></figure>
+              <figure><img src="assets/qualitative/city0336_mdic.png" alt="Cityscapes sample 0336 MDIC reconstruction" loading="lazy"><figcaption>MDIC<br><span>0.0606 / 26.22 / 0.2373</span></figcaption></figure>
               <figure><img src="assets/qualitative/city0336_codic.png" alt="Cityscapes sample 0336 CODIC reconstruction" loading="lazy"><figcaption>CODIC<br><span>0.0299 / 28.49 / 0.2024</span></figcaption></figure>
               <figure><img src="assets/qualitative/city0336_spdic.png" alt="Cityscapes sample 0336 SPDIC reconstruction" loading="lazy"><figcaption>SPDIC<br><span>0.0149 / 26.80 / 0.1150</span></figcaption></figure>
             </div>
@@ -120,7 +120,7 @@
     </div>
   </main>
 
-  <footer class="footer"><div class="container">SPDIC <span>·</span> Wuhan University of Technology</div></footer>
+  <footer class="footer"><div class="container">SPDIC <span>&middot;</span> Wuhan University of Technology</div></footer>
   <script src="theory.js"></script>
 </body>
 </html>
