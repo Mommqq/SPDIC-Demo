@@ -97,7 +97,7 @@
 
       <section id="qualitative" class="section" aria-labelledby="qualitative-title">
         <div class="section-heading"><span class="section-label">Qualitative comparisons</span><h2 id="qualitative-title">Perceptual detail at low rates</h2></div>
-        <p class="lead">The aligned KITTI strips report BPP / PSNR (dB) / LPIPS-VGG for the displayed native-resolution pairs. Lower BPP and LPIPS and higher PSNR indicate the preferred direction.</p>
+        <p class="lead">The strips report BPP / PSNR (dB) / LPIPS-VGG for the displayed native-resolution pairs.</p>
 
         <div class="comparison-list">
           <article class="comparison-strip">
@@ -133,43 +133,6 @@
             </div>
             <div class="metric-grid four"><span>BPP / PSNR / LPIPS</span><span>0.0712 / 19.39 / 0.2688</span><span>0.0810 / 22.49 / 0.2540</span><strong>0.0528 / 23.37 / 0.2002</strong></div>
           </article>
-        </div>
-
-        <div class="city-extra">
-          <div class="subheading"><span class="section-label">Additional Cityscapes examples</span><h3>Scene-level comparison beyond the manuscript example</h3></div>
-          <p class="qualitative-analysis">Across the three additional scenes, SPDIC preserves pedestrian contours, lane markings, and fine road texture with less smoothing than the deterministic reconstructions. The examples complement the quantitative Cityscapes trends and the 0336 comparison above.</p>
-          <div class="comparison-list city-list">
-            <article class="comparison-strip">
-              <div class="strip-heading"><strong>Cityscapes 0000</strong><span>crossing pedestrians and vehicles</span></div>
-              <div class="strip-grid five">
-                <div class="strip-cell"><img src="assets/city_0000/gt.png" alt="Cityscapes 0000 ground truth"><b>Ground truth</b></div>
-                <div class="strip-cell"><img src="assets/city_0000/ldmic.png" alt="Cityscapes 0000 LDMIC reconstruction"><b>LDMIC</b></div>
-                <div class="strip-cell"><img src="assets/city_0000/atn.png" alt="Cityscapes 0000 ATN reconstruction"><b>ATN</b></div>
-                <div class="strip-cell"><img src="assets/city_0000/bisic.png" alt="Cityscapes 0000 BiSIC reconstruction"><b>BiSIC</b></div>
-                <div class="strip-cell ours"><img src="assets/city_0000/spdic.png" alt="Cityscapes 0000 SPDIC reconstruction"><b>SPDIC</b></div>
-              </div>
-            </article>
-            <article class="comparison-strip">
-              <div class="strip-heading"><strong>Cityscapes 0002</strong><span>pedestrian and intersection structure</span></div>
-              <div class="strip-grid five">
-                <div class="strip-cell"><img src="assets/city_0002/gt.png" alt="Cityscapes 0002 ground truth"><b>Ground truth</b></div>
-                <div class="strip-cell"><img src="assets/city_0002/ldmic.png" alt="Cityscapes 0002 LDMIC reconstruction"><b>LDMIC</b></div>
-                <div class="strip-cell"><img src="assets/city_0002/atn.png" alt="Cityscapes 0002 ATN reconstruction"><b>ATN</b></div>
-                <div class="strip-cell"><img src="assets/city_0002/bisic.png" alt="Cityscapes 0002 BiSIC reconstruction"><b>BiSIC</b></div>
-                <div class="strip-cell ours"><img src="assets/city_0002/spdic.png" alt="Cityscapes 0002 SPDIC reconstruction"><b>SPDIC</b></div>
-              </div>
-            </article>
-            <article class="comparison-strip">
-              <div class="strip-heading"><strong>Cityscapes 0376</strong><span>wet-road texture and distant figures</span></div>
-              <div class="strip-grid five">
-                <div class="strip-cell"><img src="assets/city_0376/gt.png" alt="Cityscapes 0376 ground truth"><b>Ground truth</b></div>
-                <div class="strip-cell"><img src="assets/city_0376/ldmic.png" alt="Cityscapes 0376 LDMIC reconstruction"><b>LDMIC</b></div>
-                <div class="strip-cell"><img src="assets/city_0376/atn.png" alt="Cityscapes 0376 ATN reconstruction"><b>ATN</b></div>
-                <div class="strip-cell"><img src="assets/city_0376/bisic.png" alt="Cityscapes 0376 BiSIC reconstruction"><b>BiSIC</b></div>
-                <div class="strip-cell ours"><img src="assets/city_0376/spdic.png" alt="Cityscapes 0376 SPDIC reconstruction"><b>SPDIC</b></div>
-              </div>
-            </article>
-          </div>
         </div>
 
       </section>
