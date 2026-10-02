@@ -70,6 +70,27 @@ p { margin: 0 0 16px; }
 .paper-figure.compact { max-width: 890px; }
 .paper-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: white; }
 figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.comparison-list { display: grid; gap: 26px; margin-top: 30px; }
+.comparison-strip { padding: 18px; border: 1px solid var(--line); background: var(--paper); }
+.strip-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 13px; color: var(--muted); font-size: 13px; }
+.strip-heading strong { color: var(--ink); font: 17px/1.3 Georgia, "Times New Roman", serif; }
+.strip-grid, .metric-grid { display: grid; gap: 7px; }
+.strip-grid.five, .metric-grid.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.strip-grid.four, .metric-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.strip-cell { min-width: 0; }
+.strip-cell img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border: 1px solid var(--line); background: #f4f6f6; }
+.strip-cell b { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 650; text-align: center; }
+.strip-cell.ours img { border-color: var(--accent); }
+.strip-cell.ours b { color: var(--accent); }
+.metric-grid { margin-top: 9px; color: var(--muted); font-size: 11px; line-height: 1.35; text-align: center; }
+.metric-grid span:first-child { text-align: left; }
+.metric-grid strong { color: var(--accent); font-weight: 700; }
+.city-extra { margin-top: 56px; padding-top: 30px; border-top: 1px solid var(--line); }
+.subheading { margin-bottom: 8px; }
+.subheading .section-label { margin-bottom: 6px; }
+.subheading h3 { font: 24px/1.25 Georgia, "Times New Roman", serif; }
+.qualitative-analysis { max-width: 820px; color: var(--muted); }
+.city-list { margin-top: 22px; }
 @media (max-width: 760px) {
   .container { width: min(100% - 32px, 1040px); }
   .nav { align-items: flex-start; padding: 15px 0; }
@@ -80,6 +101,13 @@ figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height
   .analysis-card { padding: 18px; }
   .analysis-header { display: block; }
   .analysis-header label { display: block; margin-bottom: 8px; }
+  .comparison-strip { padding: 12px; }
+  .strip-heading { display: block; }
+  .strip-heading span { display: block; margin-top: 3px; }
+  .strip-grid.five, .metric-grid.five { grid-template-columns: repeat(5, minmax(92px, 1fr)); overflow-x: auto; }
+  .strip-grid.four, .metric-grid.four { grid-template-columns: repeat(4, minmax(110px, 1fr)); overflow-x: auto; }
+  .strip-grid, .metric-grid { padding-bottom: 2px; }
+  .metric-grid { font-size: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
