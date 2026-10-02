@@ -3,7 +3,7 @@ const slider=document.getElementById("rho"),value=document.getElementById("rhoVa
 function distortion(beta,rho){return 1+beta*beta-2*rho*beta;}
 function discrepancy(beta){return 0.5*(Math.log(beta*beta)+1/(beta*beta)-1);}
 function draw(){
- const rho=Number(slider.value);value.textContent=rho.toFixed(2);cost.textContent=`Distortion cost from \u03b2 = \u03c1 to \u03b2 = 1: (1 - \u03c1)^2 = ${((1-rho)**2).toFixed(3)} in units of sigmaX^2. This does not determine LPIPS.`;
+ const rho=Number(slider.value);value.textContent=rho.toFixed(2);cost.textContent=`Distortion cost from \u03b2 = \u03c1 to \u03b2 = 1: (1 - \u03c1)^2 = ${((1-rho)**2).toFixed(3)} in units of sigmaX^2.`;
  const rect=canvas.getBoundingClientRect(),scale=window.devicePixelRatio||1;canvas.width=Math.round(rect.width*scale);canvas.height=Math.round(rect.height*scale);const ctx=canvas.getContext("2d");ctx.scale(scale,scale);
  const w=rect.width,h=rect.height,left=48,right=16,top=18,bottom=41,pw=w-left-right,ph=h-top-bottom,xMin=.35,xMax=1.25;let yMax=0;for(let i=0;i<=200;i++){const b=xMin+(xMax-xMin)*i/200;yMax=Math.max(yMax,distortion(b,rho),discrepancy(b));}yMax=Math.ceil(yMax*10)/10+.05;
  const px=b=>left+(b-xMin)/(xMax-xMin)*pw,py=y=>top+ph-y/yMax*ph;ctx.font="12px system-ui,sans-serif";ctx.fillStyle="#53616b";

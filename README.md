@@ -2,7 +2,7 @@
 
 **Perceptual Distributed Image Compression via Controlled Stochastic Reconstruction**
 
-Guojun Xu, Jianwen Xiang, Yaning Xie, and Junwei Zhou
+Guojun Xu, Jianwen Xiang, Yaning Xie, Yanchao Yang, and Junwei Zhou
 
 SPDIC studies the perception–distortion behavior of distributed image compression through controlled stochastic reconstruction and decoder-only side information. The project page presents the theoretical interpretation, architecture, quantitative comparisons, and qualitative results on KITTI Stereo and Cityscapes.
 
