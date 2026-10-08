@@ -34,10 +34,9 @@
 
     <div class="container">
       <section class="section overview" aria-labelledby="overview-title">
-        <div class="section-heading"><span class="section-label">Overview</span><h2 id="overview-title">Decoder-side information for perceptual reconstruction</h2></div>
+        <div class="section-heading"><span class="section-label">Overview</span><h2 id="overview-title">Side information for Perception-Distortion Trade-off</h2></div>
         <div class="section-body">
-          <p>Distributed image compression transmits a target image while a correlated image is available only at the decoder. Distortion-oriented reconstruction can suppress uncertain local variation. Restoring that variation without sufficient correspondence to the target, however, may increase pixel error.</p>
-          <p>SPDIC uses controlled stochastic refinement of the target latent. Textual side information conditions the refinement, and multiscale visual side information guides the reconstruction. The two forms of guidance address different aspects of the decoder's uncertainty.</p>
+          <p>Distributed image compression (DIC) reduces transmission cost by exploiting correlated side information (SI) available only at the decoder. Recent perceptual DIC methods improve visual quality through generative modeling, but incur higher pixel distortion. To analyze the role of SI in this trade-off, we develop a local Gaussian analysis that separates two complementary factors: reconstruction scale and target correspondence. Restoring the reconstruction scale toward that of the source improves local distribution matching, whereas stronger target correspondence reduces the distortion incurred by variance restoration. Guided by the analysis, we propose a perceptual DIC framework based on controlled stochastic reconstruction, termed SPDIC, which performs stochastic latent refinement under decoder-side SI guidance. Textual SI conditions a pretrained denoising network during stochastic refinement, while multiscale visual SI provides spatial guidance for reconstruction. Experiments on KITTI Stereo and Cityscapes show perceptual gains across multiple bitrates. Ablation studies further support the roles of stochastic refinement and decoder-side SI.</p>
         </div>
       </section>
 
